@@ -39,6 +39,13 @@ RUN ln -sf /usr/bin/nodejs /usr/local/bin/node
 RUN curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -o /usr/local/bin/yt-dlp \
     && chmod a+rx /usr/local/bin/yt-dlp
 
+WORKDIR /app
+
+CMD ["/app/bot"]RUN ln -sf /usr/bin/nodejs /usr/local/bin/node
+
+RUN curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -o /usr/local/bin/yt-dlp \
+    && chmod a+rx /usr/local/bin/yt-dlp
+
 RUN pip3 install --no-cache-dir \
     torch torchaudio --index-url https://download.pytorch.org/whl/cpu \
     && pip3 install --no-cache-dir \
