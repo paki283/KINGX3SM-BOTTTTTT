@@ -9,18 +9,18 @@ COPY . .
 
 RUN rm -f go.mod go.sum || true
 RUN go mod init impossible-bot && \
-RUN go get go.mau.fi/whatsmeow@latest && \
-RUN go get go.mongodb.org/mongo-driver/mongo@latest && \
-RUN go get go.mongodb.org/mongo-driver/bson@latest && \
-RUN go get github.com/redis/go-redis/v9@latest && \
-RUN go get github.com/gin-gonic/gin@latest && \
-RUN go get github.com/mattn/go-sqlite3@latest && \
-RUN go get github.com/lib/pq@latest && \
-RUN go get github.com/gorilla/websocket@latest && \
-RUN go get google.golang.org/protobuf/proto@latest && \
-RUN go get github.com/showwin/speedtest-go && \
-RUN go get google.golang.org/genai && \
-RUN go mod tidy
+    go get go.mau.fi/whatsmeow@latest && \
+    go get go.mongodb.org/mongo-driver/mongo@latest && \
+    go get go.mongodb.org/mongo-driver/bson@latest && \
+    go get github.com/redis/go-redis/v9@latest && \
+    go get github.com/gin-gonic/gin@latest && \
+    go get github.com/mattn/go-sqlite3@latest && \
+    go get github.com/lib/pq@latest && \
+    go get github.com/gorilla/websocket@latest && \
+    go get google.golang.org/protobuf/proto@latest && \
+    go get github.com/showwin/speedtest-go && \
+    go get google.golang.org/genai && \
+    go mod tidy
 
 RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
 
