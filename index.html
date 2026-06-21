@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IMPOSSIBLE BOT - QUANTUM TERMINAL</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Grotesk:wght@300;500;700&family=JetBrains+Mono:wght@400;700&display=swap');
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: #070202;
+            margin: 0;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        .cyber-font { font-family: 'Orbitron', sans-serif; }
+        .mono-font { font-family: 'JetBrains Mono', monospace; }
+
+        /* Crimson Red Tech Grid Background */
+        .matrix-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -2;
+            background-image: 
+                linear-gradient(rgba(255, 0, 60, 0.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 0, 60, 0.025) 1px, transparent 1px);
+            background-size: 35px 35px;
+            background-position: center;
+        }
+        
+        .radar-glow {
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 85vw; height: 85vw;
+            max-width: 900px; max-height: 900px;
+            background: radial-gradient(circle, rgba(255, 0, 60, 0.07) 0%, rgba(20, 5, 5, 0.01) 60%, transparent 80%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Crimson Laser Sweep Animation */
+        .laser-sweep {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 3px;
+            background: linear-gradient(90deg, transparent, #ff003c, #ff4d4d, transparent);
+            box-shadow: 0 0 15px #ff003c, 0 0 30px #ff4d4d;
+            opacity: 0.5;
+            z-index: -1;
+            animation: sweep 6s linear infinite;
+        }
+
+        /* Crimson Radar Rotator */
+        .radar-circle {
+            position: absolute;
+            inset: -12px;
+            border: 2px dashed rgba(255, 0, 60, 0.35);
+            border-radius: 50%;
+            animation: rotateRadar 10s linear infinite;
+        }
+        .radar-pulse {
+            position: absolute;
+            inset: -4px;
+            border: 1px solid #ff3333;
+            border-radius: 50%;
+            opacity: 0;
+            animation: radarDistortion 2.5s cubic-bezier(0.1, 0.8, 0.3, 1) infinite;
+        }
+
+        /* VIP Premium Glassmorphism Panel */
+        .cyber-panel {
+            position: relative;
+            background: rgba(15, 8, 8, 0.68);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 0, 60, 0.18);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.9), inset 0 1px 2px rgba(255, 255, 255, 0.03);
+            animation: panelEntrance 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* Neon Corner Tech Borders */
+        .cyber-corner {
+            position: absolute;
+            width: 14px; height: 14px;
+            border-color: #ff003c;
+            border-style: solid;
+            pointer-events: none;
+        }
+        .corner-tl { top: -2px; left: -2px; border-width: 3px 0 0 3px; }
+        .corner-tr { top: -2px; right: -2px; border-width: 3px 3px 0 0; }
+        .corner-bl { bottom: -2px; left: -2px; border-width: 0 0 3px 3px; }
+        .corner-br { bottom: -2px; right: -2px; border-width: 0 3px 3px 0; }
+
+        /* Shimmer Button Effect */
+        .laser-btn {
+            background: linear-gradient(135deg, #bd002a, #ff003c);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(255, 0, 60, 0.25);
+        }
+        .laser-btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -150%; width: 50%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+            transform: skewX(-30deg);
+            animation: laserSwipe 3.5s infinite ease-in-out;
+        }
+
+        /* Core Keyframes */
+        @keyframes sweep { 0% { top: -5vh; } 100% { top: 105vh; } }
+        @keyframes rotateRadar { 100% { transform: rotate(360deg); } }
+        @keyframes laserSwipe { 0% { left: -150%; } 50%, 100% { left: 250%; } }
+        @keyframes panelEntrance {
+            from { opacity: 0; transform: scale(0.97) translateY(15px); filter: blur(5px); }
+            to { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
+        }
+        @keyframes radarDistortion {
+            0% { transform: scale(0.95); opacity: 1; }
+            100% { transform: scale(1.35); opacity: 0; border-color: #ff003c; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center text-gray-200 py-10 px-4 relative">
+
+    <div class="matrix-bg"></div>
+    <div class="radar-glow"></div>
+    <div class="laser-sweep"></div>
+
+    <div class="cyber-panel w-full max-w-md rounded-2xl p-8 relative my-auto">
+        <div class="cyber-corner corner-tl"></div>
+        <div class="cyber-corner corner-tr"></div>
+        <div class="cyber-corner corner-bl"></div>
+        <div class="cyber-corner corner-br"></div>
+
+        <div class="flex justify-between items-center mb-8 text-[10px] uppercase font-bold tracking-[0.2em] text-stone-500 border-b border-stone-900 pb-3">
+            <div class="flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-red-500 animate-ping"></span>
+                <span class="text-red-500 font-mono">SYS-CORE: SECURE</span>
+            </div>
+            <div class="font-mono">IMP-v5.00</div>
+        </div>
+
+        <div class="relative mx-auto w-24 h-24 bg-stone-950/90 rounded-full flex items-center justify-center mb-6 border border-stone-900 shadow-[0_0_40px_rgba(255,0,60,0.12)] group cursor-pointer">
+            <div class="radar-circle"></div>
+            <div class="radar-pulse"></div>
+            <i class="fa-brands fa-whatsapp text-5xl text-transparent bg-clip-text bg-gradient-to-b from-rose-400 via-red-500 to-red-600 drop-shadow-[0_0_15px_rgba(255,0,60,0.4)] transform group-hover:scale-110 transition-transform duration-300"></i>
+        </div>
+
+        <h2 class="cyber-font text-3xl font-black text-center tracking-wider mb-1 bg-gradient-to-r from-white via-stone-200 to-red-400 bg-clip-text text-transparent">IMPOSSIBLE BOT</h2>
+        <p class="text-center text-[10px] font-black tracking-[0.4em] text-red-500/90 mb-6 uppercase">Quantum Pairing Protocol</p>
+        
+        <p class="text-stone-400 text-center text-xs font-normal leading-relaxed mb-6 px-2">Secure terminal channel is primed. Provide the instance registration number without your country prefix code.</p>
+
+        <div class="space-y-4">
+            <div class="relative group">
+                <input type="text" id="phoneInput" placeholder="923001234567" 
+                    class="w-full px-5 py-4 bg-stone-950/80 border border-stone-900 rounded-xl focus:outline-none focus:border-red-500 text-white placeholder-stone-700 text-center text-xl tracking-[0.15em] mono-font font-bold transition-all duration-300 shadow-inner group-hover:border-stone-800">
+                <div class="absolute inset-0 rounded-xl pointer-events-none border border-transparent group-focus-within:border-red-500/20 transition-all duration-300"></div>
+            </div>
+            
+            <button id="connectBtn" onclick="requestPairingCode()" 
+                class="laser-btn w-full text-white font-extrabold py-4 px-6 rounded-xl hover:shadow-[0_0_30px_rgba(255,0,60,0.45)] transition-all duration-300 transform hover:-translate-y-0.5 uppercase tracking-widest text-sm border border-white/5 cyber-font cursor-pointer">
+                <span id="btnText">Generate Token</span>
+                <i id="spinner" class="fa-solid fa-compact-disc fa-spin hidden ml-3 text-lg text-white"></i>
+            </button>
+        </div>
+
+        <div id="codeContainer" class="hidden mt-6 p-5 bg-stone-950/95 rounded-xl border border-red-500/25 flex justify-between items-center relative overflow-hidden group backdrop-blur-md shadow-2xl transition-all duration-500">
+            <div class="absolute left-0 top-0 h-full w-[3px] bg-gradient-to-b from-red-500 to-rose-600"></div>
+            <div class="text-left relative z-10 pl-2">
+                <span class="text-[9px] text-red-500 font-bold block mb-1 uppercase tracking-widest cyber-font animate-pulse">Authentication Key</span>
+                <span id="pairingCode" class="text-2xl mono-font font-black text-white tracking-[0.25em] drop-shadow-[0_0_10px_rgba(255,0,60,0.4)]">---- ----</span>
+            </div>
+            <button onclick="copyCode()" class="relative z-10 text-red-500 hover:text-white bg-red-500/5 hover:bg-red-500/20 transition-all cursor-pointer p-3.5 rounded-lg border border-red-500/10 hover:scale-105 active:scale-95">
+                <i id="copyIcon" class="fa-regular fa-copy text-lg"></i>
+            </button>
+        </div>
+
+        <div class="mt-8 pt-6 border-t border-stone-900">
+            <div class="flex items-center justify-center gap-2 mb-4">
+                <i class="fa-solid fa-network-wired text-red-500 text-[10px]"></i>
+                <h3 class="text-[10px] text-stone-400 font-bold uppercase tracking-[0.25em] cyber-font">System Core Diagnostics</h3>
+            </div>
+            <div class="grid grid-cols-2 gap-3 text-[11px] mono-font text-left">
+                <div class="bg-stone-950/40 p-3 rounded-xl border border-stone-900/40 flex items-center justify-between hover:border-stone-800 transition-all">
+                    <span class="text-stone-500 font-medium">Network</span>
+                    <span class="text-emerald-400 flex items-center gap-1.5 font-bold uppercase text-[10px]"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_10px_#10b981]"></span>Online</span>
+                </div>
+                <div class="bg-stone-950/40 p-3 rounded-xl border border-stone-900/40 flex items-center justify-between hover:border-stone-800 transition-all">
+                    <span class="text-stone-500 font-medium">Engine</span>
+                    <span class="text-red-400 font-bold text-[10px] uppercase">v5-Core</span>
+                </div>
+                <div class="bg-stone-950/40 p-3 rounded-xl border border-stone-900/40 flex items-center justify-between hover:border-stone-800 transition-all">
+                    <span class="text-stone-500 font-medium">Structure</span>
+                    <span class="text-stone-400 font-bold text-[10px] uppercase">Multi-Dev</span>
+                </div>
+                <div class="bg-stone-950/40 p-3 rounded-xl border border-stone-900/40 flex items-center justify-between hover:border-stone-800 transition-all">
+                    <span class="text-stone-500 font-medium">Firewall</span>
+                    <span class="text-rose-500 font-bold text-[10px] uppercase">Active v5</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex justify-center gap-4 mt-6">
+            <a href="https://t.me/silent_hosting" target="_blank" class="flex-1 flex items-center justify-center gap-2 bg-stone-950/40 text-stone-400 border border-stone-900 py-3 rounded-xl hover:bg-red-500/10 hover:text-red-400 hover:border-red-500/20 transition-all duration-300 group">
+                <i class="fa-brands fa-telegram text-base group-hover:scale-110 transition-transform"></i>
+                <span class="text-[10px] font-bold uppercase tracking-wider cyber-font">Network</span>
+            </a>
+            <a href="https://whatsapp.com" target="_blank" class="flex-1 flex items-center justify-center gap-2 bg-stone-950/40 text-stone-400 border border-stone-900 py-3 rounded-xl hover:bg-rose-500/10 hover:text-rose-400 hover:border-rose-500/20 transition-all duration-300 group">
+                <i class="fa-brands fa-whatsapp text-base group-hover:scale-110 transition-transform"></i>
+                <span class="text-[10px] font-bold uppercase tracking-wider cyber-font">Support</span>
+            </a>
+        </div>
+
+        <p class="mt-6 text-center text-[9px] text-stone-600 font-bold uppercase tracking-[0.25em] mono-font">IMPOSSIBLE BOT HIGHLY ENCRYPTED</p>
+    </div>
+
+    <script>
+        async function requestPairingCode() {
+            const phone = document.getElementById('phoneInput').value.replace(/[^0-9]/g, '');
+            if (!phone) {
+                alert("Please enter a valid number!");
+                return;
+            }
+
+            document.getElementById('btnText').innerText = "ENCRYPTING...";
+            document.getElementById('spinner').classList.remove('hidden');
+            document.getElementById('connectBtn').disabled = true;
+
+            try {
+                const response = await fetch('/pair?phone=' + phone);
+                const code = await response.text();
+                
+                if (response.ok) {
+                    const container = document.getElementById('codeContainer');
+                    document.getElementById('pairingCode').innerText = code;
+                    container.classList.remove('hidden');
+                    
+                    // موبائل فکس: کوڈ جنریٹ ہوتے ہی خودکار طریقے سے پیج کو اسکرول ڈاؤن کرنا
+                    setTimeout(() => {
+                        container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }, 100);
+                } else {
+                    alert("Error: " + code);
+                }
+            } catch (error) {
+                alert("Failed to connect to server.");
+            } finally {
+                document.getElementById('btnText').innerText = "Generate Token";
+                document.getElementById('spinner').classList.add('hidden');
+                document.getElementById('connectBtn').disabled = false;
+            }
+        }
+
+        function copyCode() {
+            const code = document.getElementById('pairingCode').innerText;
+            const copyIcon = document.getElementById('copyIcon');
+            navigator.clipboard.writeText(code).then(() => {
+                copyIcon.className = "fa-solid fa-check text-emerald-400 animate-pulse";
+                setTimeout(() => {
+                    copyIcon.className = "fa-regular fa-copy text-lg";
+                }, 2500);
+            });
+        }
+    </script>
+</body>
+</html>
